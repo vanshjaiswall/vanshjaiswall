@@ -16,9 +16,9 @@ const USER = "vanshjaiswall";
 const C = { bg: "#07060D", panel: "#100E1A", panel2: "#16131F", cyan: "#00F0FF", magenta: "#FF2BD6", yellow: "#FCEE0A", red: "#FF003C", green: "#39FF88", text: "#ECEAF4", dim: "#8D88A6", faint: "#4A4560" };
 
 // ---------- Copy ----------
-const ABOUT = "Building payments infra at Dodo Payments.";
-const TYPING = ["shipping AI agents that talk to real APIs", "designing apps that feel native", "running further than planned", "probably debugging a webhook rn"];
-const ROLES = [["TypeScript", C.cyan], ["Next.js", C.text], ["Payments", C.yellow], ["AI Agents", C.magenta], ["Design", C.red], ["Runner", C.green]];
+const ABOUT = "Builds things at Dodo. Breaks them in staging.";
+const TYPING = ["it works on my machine", "git push --force (respectfully)", "fixing bugs I wrote at 3am", "turning coffee into commits"];
+const ROLES = [["TypeScript", C.cyan], ["Next.js", C.text], ["Night Owl", C.yellow], ["AI Agents", C.magenta], ["Design", C.red], ["Runner", C.green]];
 const CARD = { label: "// SIDE PROJECT — LIVE", sub: "Habits and a running plan, built for iPhone.", cta: "OPEN THE APP", rows: ["Water", "Steps", "Run 5 km"] };
 
 // ---------- Build-time fetches: fonts, icons, avatar ----------
@@ -36,15 +36,14 @@ async function phosphor(name, weight = "regular") {
   const svg = await (await fetch(`https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2.1.1/assets/${weight}/${file}.svg`)).text();
   return svg.replace(/^<svg[^>]*>/, "").replace(/<\/svg>\s*$/, "");
 }
-const ICON_NAMES = ["lightning", "credit-card", "sneaker-move", "code", "cpu", "terminal-window", "gift", "smiley", "plus-circle", "sticker"];
+const ICON_NAMES = ["lightning", "coffee", "sneaker-move", "code", "cpu", "terminal-window", "gift", "smiley", "plus-circle", "sticker"];
 const ICONS = Object.fromEntries(await Promise.all(ICON_NAMES.map(async n => [n, await phosphor(n)])));
 const icon = (name, x, y, size, color) => `<g transform="translate(${x} ${y}) scale(${(size / 256).toFixed(4)})" fill="${color}">${ICONS[name]}</g>`;
-const avatarB64 = Buffer.from(await (await fetch(`https://github.com/${USER}.png?size=240`)).arrayBuffer()).toString("base64");
 
 const monoText = TYPING.join("") + ROLES.map(r => r[0]).join("") + CARD.label + CARD.cta + USER
-  + "> ABOUT ME ROLES PLAYING RUNNING ON A RUN SYS.ONLINE NIGHT_CITY://VANSH BUILD 26.10 0123456789:. elapsed km → — // ▮▯ DODO 24/7 PAY SUN 18 OCT LIVE @";
+  + "> ABOUT ME ROLES PLAYING RUNNING ON A RUN SYS.ONLINE NIGHT_CITY://VANSH BUILD 26.10 0123456789:. elapsed km → — // ▮▯ DODO 404 SLEEP SUN 18 OCT LIVE @";
 const displayText = "Vansh DAILY SPLITS Today 0123456789%";
-const bodyText = ABOUT + "Visual Studio Code Editing checkout.ts Workspace: dodo-payments Daily Splits Long run · 10 km planned Message @" + USER + CARD.sub + CARD.rows.join("");
+const bodyText = ABOUT + "Visual Studio Code Editing final_final_v3.ts · day 3 Daily Splits Long run · 10 km planned Message @" + USER + CARD.sub + CARD.rows.join("");
 const FONTS = (await Promise.all([
   fontFace("Display", "Hanken+Grotesk:wght@800", displayText),
   fontFace("Text", "Geist:wght@400", bodyText),
@@ -121,7 +120,7 @@ function city(W, H) {
         <rect x="262" y="128" width="30" height="104" rx="3" fill="none" stroke="${C.magenta}" stroke-width="2">${flicker(41, 5)}</rect>
         ${"DODO".split("").map((ch, i) => `<text x="277" y="${152 + i * 22}" text-anchor="middle" font-family="${F.monoB}" font-size="20" fill="${C.magenta}">${ch}${flicker(41, 5)}</text>`).join("")}
         <rect x="986" y="150" width="112" height="34" rx="4" fill="none" stroke="${C.cyan}" stroke-width="2"/>
-        <text x="1042" y="173" text-anchor="middle" font-family="${F.monoB}" font-size="17" letter-spacing="2" fill="${C.cyan}">24/7 PAY${flicker(77, 3.4)}</text>
+        <text x="1042" y="173" text-anchor="middle" font-family="${F.monoB}" font-size="17" letter-spacing="2" fill="${C.cyan}">404 SLEEP${flicker(77, 3.4)}</text>
       </g>
     </g>
     ${cars}
@@ -135,10 +134,10 @@ function city(W, H) {
 
 // ---------- Discord-style profile card ----------
 function profileCard() {
-  const W = 1200, H = 876, BH = 268;
+  const W = 1200, H = 812, BH = 268, DY = -64; // no avatar: the info panel rides up under the banner
   const AX = 150, AY = 268, AR = 84;
   // badges
-  const badges = [["lightning", C.yellow], ["credit-card", C.cyan], ["code", C.magenta], ["cpu", C.green], ["sneaker-move", C.red]];
+  const badges = [["lightning", C.yellow], ["coffee", C.cyan], ["code", C.magenta], ["cpu", C.green], ["sneaker-move", C.red]];
   const bx0 = W - 40 - badges.length * 52 - 12;
   const badgeSvg = `<rect x="${bx0}" y="282" width="${badges.length * 52 + 12}" height="60" rx="12" fill="${C.panel}" stroke="${C.cyan}" stroke-opacity="0.15"/>`
     + badges.map(([n, col], i) => { const cx = bx0 + 32 + i * 52, cy = 312;
@@ -189,24 +188,7 @@ function profileCard() {
     <rect x="${barX}" y="${runY + 74}" width="0" height="4" rx="2" fill="url(#neonbar)"><animate attributeName="width" values="0;${barW};${barW}" keyTimes="0;0.85;1" dur="9s" repeatCount="indefinite"/></rect>
     <circle cx="${barX}" cy="${runY + 76}" r="5" fill="#FFFFFF" filter="url(#glowM)"><animate attributeName="cx" values="${barX};${barX + barW};${barX + barW}" keyTimes="0;0.85;1" dur="9s" repeatCount="indefinite"/></circle>`;
 
-  // avatar duotone + glitch
-  const av = `<g>
-      <circle cx="${AX}" cy="${AY}" r="${AR + 10}" fill="${C.bg}"/>
-      <g><animateTransform attributeName="transform" type="rotate" from="0 ${AX} ${AY}" to="360 ${AX} ${AY}" dur="14s" repeatCount="indefinite"/>
-        <circle cx="${AX}" cy="${AY}" r="${AR + 6}" fill="none" stroke="url(#ring)" stroke-width="3" stroke-dasharray="40 14 8 14" filter="url(#glowS)"/></g>
-      <clipPath id="avclip"><circle cx="${AX}" cy="${AY}" r="${AR}"/></clipPath>
-      <g clip-path="url(#avclip)">
-        <image href="data:image/png;base64,${avatarB64}" x="${AX - AR}" y="${AY - AR}" width="${AR * 2}" height="${AR * 2}" filter="url(#duo)"/>
-        <image href="data:image/png;base64,${avatarB64}" x="${AX - AR}" y="${AY - AR}" width="${AR * 2}" height="${AR * 2}" filter="url(#toCyan)" opacity="0" style="mix-blend-mode:screen">
-          <animate attributeName="opacity" values="0;0;0.8;0;0.7;0;0" keyTimes="0;0.6;0.61;0.62;0.63;0.64;1" calcMode="discrete" dur="5s" repeatCount="indefinite"/>${jitter(10, 5, 55, [0.6, 0.64])}</image>
-        <rect x="${AX - AR}" y="${AY - AR}" width="${AR * 2}" height="${AR * 2}" fill="url(#scan)"/>
-      </g>
-      <circle cx="${AX + 60}" cy="${AY + 60}" r="21" fill="${C.bg}"/>
-      <circle cx="${AX + 60}" cy="${AY + 60}" r="14" fill="${C.green}" filter="url(#glowM)"/>
-      <circle cx="${AX + 60}" cy="${AY + 60}" r="14" fill="none" stroke="${C.green}" stroke-width="2"><animate attributeName="r" values="14;26" dur="1.8s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.8;0" dur="1.8s" repeatCount="indefinite"/></circle>
-    </g>`;
-
-  return `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Profile card for Vansh (vanshjaiswall): building payments infrastructure at Dodo Payments. Roles: TypeScript, Next.js, Payments, AI agents, design, runner. Currently editing checkout.ts in VS Code and running with Daily Splits.">
+  return `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Profile card for Vansh (vanshjaiswall). Builds things at Dodo, breaks them in staging. Roles: TypeScript, Next.js, night owl, AI agents, design, runner.">
   <defs>
     <style>${FONTS}</style>
     <clipPath id="card"><rect width="${W}" height="${H}" rx="22"/></clipPath>
@@ -229,7 +211,7 @@ function profileCard() {
     <g clip-path="url(#bannerclip)">${city(W, BH)}</g>
     <path d="M0 ${BH}H${W}" stroke="url(#edge)" stroke-width="2" filter="url(#glowS)"/>
 
-    ${av}
+    <g transform="translate(0 ${DY})">
     ${badgeSvg}
 
     <rect x="32" y="364" width="${W - 64}" height="408" rx="16" fill="${C.panel}" stroke="${C.cyan}" stroke-opacity="0.14"/>
@@ -246,7 +228,7 @@ ${typing}
     ${roles}
 
     <text x="612" y="512" font-family="${F.monoB}" font-size="14" letter-spacing="2.5" fill="${C.dim}">PLAYING</text>
-    ${activity(526, "terminal-window", C.cyan, "Visual Studio Code", "Editing checkout.ts · dodo-payments")}
+    ${activity(526, "terminal-window", C.cyan, "Visual Studio Code", "Editing final_final_v3.ts · day 3")}
     ${timer}
     <text x="612" y="652" font-family="${F.monoB}" font-size="14" letter-spacing="2.5" fill="${C.dim}">ON A RUN</text>
     ${run}
@@ -256,6 +238,8 @@ ${typing}
     <text x="94" y="826" font-family="${F.text}" font-size="19" fill="${C.dim}">Message @${USER}</text>
     <rect x="${94 + 0.53 * 19 * ("Message @" + USER).length + 6}" y="808" width="2" height="24" fill="${C.cyan}"><animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.5;0.51;1" dur="1.1s" repeatCount="indefinite"/></rect>
     ${icon("gift", W - 160, 805, 28, C.dim)}${icon("sticker", W - 118, 805, 28, C.dim)}${icon("smiley", W - 76, 805, 28, C.yellow)}
+
+    </g>
 
     ${scanOverlay(W, H)}
     <rect x="0.75" y="0.75" width="${W - 1.5}" height="${H - 1.5}" rx="21.25" fill="none" stroke="url(#edge)" stroke-width="1.5" stroke-opacity="0.7"/>
